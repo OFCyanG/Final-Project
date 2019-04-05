@@ -1,0 +1,2089 @@
+[
+    {
+        "id": "215e5267.6ba35e",
+        "type": "tab",
+        "label": "MQTT_BROKER",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b56d9067.398ed8",
+        "type": "tab",
+        "label": "SENSOR_DB",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "786f98da.0016b8",
+        "type": "tab",
+        "label": "ACTUATOR",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e31131e3.00c47",
+        "type": "tab",
+        "label": "MESSEGER",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "367812cf.dc369e",
+        "type": "tab",
+        "label": "Server & System",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7da79a00.44e54",
+        "type": "tab",
+        "label": "Add document to device collection",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "a941c586.0f84a8",
+        "type": "tab",
+        "label": "Example",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "604607f4.b75468",
+        "type": "mongodb2",
+        "z": "",
+        "uri": "mongodb://localhost:27017/smartirr",
+        "name": "",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "5e5cce1f.8c89d",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "8cf0d5b3.320428",
+        "type": "mongodb2",
+        "z": "",
+        "uri": "mongodb://localhost:27017/smartirr",
+        "name": "",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "2a2270f8.f597c8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "m16.cloudmqtt.com",
+        "port": "13465",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "4e3d8c3.48b2d74",
+        "type": "mosca in",
+        "z": "215e5267.6ba35e",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "fillab",
+        "password": "cyangit",
+        "dburl": "mongodb://localhost:27017/mqtt",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "96daf357.4c917"
+            ]
+        ]
+    },
+    {
+        "id": "96daf357.4c917",
+        "type": "debug",
+        "z": "215e5267.6ba35e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 350,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "4bee8577.0ef99c",
+        "type": "delay",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 260,
+        "y": 480,
+        "wires": [
+            [
+                "eb69e2d0.8762e",
+                "e1a67555.3a43d8",
+                "f554e280.b7259",
+                "8b4d0ec0.65ec5"
+            ]
+        ]
+    },
+    {
+        "id": "2690416a.380d1e",
+        "type": "mqtt in",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "topic": "/data/packet",
+        "qos": "2",
+        "broker": "5e5cce1f.8c89d",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "8917dd75.261b6"
+            ]
+        ]
+    },
+    {
+        "id": "8917dd75.261b6",
+        "type": "json",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "4bee8577.0ef99c"
+            ]
+        ]
+    },
+    {
+        "id": "88f8b64e.255668",
+        "type": "mongodb2 in",
+        "z": "a941c586.0f84a8",
+        "service": "_ext_",
+        "configNode": "604607f4.b75468",
+        "name": "Get-Pre-Humidity",
+        "collection": "data",
+        "operation": "findOne",
+        "x": 750,
+        "y": 200,
+        "wires": [
+            [
+                "a1c384fb.801a58"
+            ]
+        ]
+    },
+    {
+        "id": "eb69e2d0.8762e",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Get-Cur-Hum",
+        "func": "var mac_device = msg.payload.mac;\nglobal.set('curHum',msg.payload.param.hum);\nmsg.payload = [{\"mac\":mac_device},{sort:{'_id':-1}}]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 240,
+        "wires": [
+            [
+                "88f8b64e.255668",
+                "14def6e6.2424a9"
+            ]
+        ]
+    },
+    {
+        "id": "a1c384fb.801a58",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "func": "global.set('preHum',msg.payload.param.hum);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 910,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "14def6e6.2424a9",
+        "type": "mongodb2 in",
+        "z": "a941c586.0f84a8",
+        "service": "_ext_",
+        "configNode": "604607f4.b75468",
+        "name": "Get-Info-Device",
+        "collection": "device",
+        "operation": "findOne",
+        "x": 740,
+        "y": 260,
+        "wires": [
+            [
+                "316061bd.00370e"
+            ]
+        ]
+    },
+    {
+        "id": "316061bd.00370e",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "func": "global.set('idDevice',msg.payload._id);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 890,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81a32c71.a509",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Run-Algorithms-VAN",
+        "func": "var a = [0, 1, 2];\nvar water = [5, 10, 20];\nvar Vth = 3;\nvar L = -1;\nvar OK = 0;\nvar H = 1;\nvar penalty = 100;\n\n\nvar alpha = (water[2] - water[1])/(Vth*(a[2]- a[1]));\n\nvar preHum = global.get(\"preHum\");\nvar curHum = global.get(\"curHum\");\nvar v;\nvar th1 = 15;\nvar th2 = 60;\nfunction humid2State(humid)\n{\n    if(humid < th1) return L;\n    if(humid > th2) return H;\n    return OK;\n}\n\nfunction reward(curState, action, nextState)\n{\n    var p = 0;\n    if(nextState != OK) p = penalty;\n    var r = -alpha* curState * v * a[action] - water[action] - p;\n    return r;\n}\n\nfunction makeDecision(curHumid, preHumid)\n{\n    var maxReward = -2000;\n    var curState = humid2State(curHumid);\n    v = preHumid - curHumid;\n    var tmpReward = 0;\n    var nextHumid;\n    var nextState;\n    var action;\n    \n    for(var i = 0; i < 3; i++)\n    {\n        nextHumid = curHumid - v + water[i];\n        nextState = humid2State(nextHumid);\n        tmpReward = reward(curState, i , nextState);\n        if(tmpReward > maxReward)\n        {\n            maxReward = tmpReward;\n            action = i;\n        }\n    }\n    return a[action];\n}\n\nvar control = makeDecision(curHum, preHum);\nmsg.payload = control;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 360,
+        "wires": [
+            [
+                "e3a0797c.479e58"
+            ]
+        ]
+    },
+    {
+        "id": "e1a67555.3a43d8",
+        "type": "delay",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "81a32c71.a509"
+            ]
+        ]
+    },
+    {
+        "id": "aaf1401b.9d97e",
+        "type": "mongodb2 in",
+        "z": "a941c586.0f84a8",
+        "service": "_ext_",
+        "configNode": "604607f4.b75468",
+        "name": "Query-Collection-Device",
+        "collection": "device",
+        "operation": "aggregate.toArray",
+        "x": 730,
+        "y": 500,
+        "wires": [
+            [
+                "4ad269da.e2f8e8"
+            ]
+        ]
+    },
+    {
+        "id": "4ad269da.e2f8e8",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Update-Device-List",
+        "func": "global.set('tableDevice',msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 970,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db8c2091.6330b",
+        "type": "comment",
+        "z": "a941c586.0f84a8",
+        "name": "Query-Table-Device",
+        "info": "",
+        "x": 710,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f554e280.b7259",
+        "type": "delay",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 510,
+        "y": 500,
+        "wires": [
+            [
+                "aaf1401b.9d97e"
+            ]
+        ]
+    },
+    {
+        "id": "b3d50ff4.777c6",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Add-Time",
+        "func": "var date = new Date().toLocaleString('en-US',{timezone:'Asian/Jakatar'});\nvar datee = new Date();\n\nvar _date = { \"year\": datee.getFullYear(),\n            \"mouth\": datee.getMonth(),\n            \"day\":datee.getDate(),\n            \"hour\":datee.getHours(),\n            \"minute\":datee.getMinutes(),\n            \"second\":datee.getSeconds(),\n            \"showDate\":date\n}\n\nmsg.payload.date = _date;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1000,
+        "y": 660,
+        "wires": [
+            [
+                "4365d489.d9bb9c"
+            ]
+        ]
+    },
+    {
+        "id": "620b0436.16fa7c",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Match-Mac-Device?",
+        "func": "var match_mac = msg.payload.mac;\nvar query_device = global.get('tableDevice');\nvar check = false;\nfor (var i=0;i<query_device.length;i++)\n{\n    if (match_mac === query_device[i].mac)\n    check = true;\n}\n\nif(check===false) msg.payload = check; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 700,
+        "y": 640,
+        "wires": [
+            [
+                "7ad1cd5d.519f94"
+            ]
+        ]
+    },
+    {
+        "id": "8b4d0ec0.65ec5",
+        "type": "delay",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 510,
+        "y": 640,
+        "wires": [
+            [
+                "620b0436.16fa7c"
+            ]
+        ]
+    },
+    {
+        "id": "7ad1cd5d.519f94",
+        "type": "switch",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 870,
+        "y": 640,
+        "wires": [
+            [
+                "18621da9.64aca2"
+            ],
+            [
+                "b3d50ff4.777c6"
+            ]
+        ]
+    },
+    {
+        "id": "ea6bfa02.b3ac88",
+        "type": "comment",
+        "z": "a941c586.0f84a8",
+        "name": "Delay-for-Update-Device-Table",
+        "info": "",
+        "x": 570,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "4365d489.d9bb9c",
+        "type": "mongodb2 in",
+        "z": "a941c586.0f84a8",
+        "service": "_ext_",
+        "configNode": "604607f4.b75468",
+        "name": "Insert-Data-into-Collections",
+        "collection": "data",
+        "operation": "insertOne",
+        "x": 1220,
+        "y": 680,
+        "wires": [
+            [
+                "6b97f0af.5c4e1"
+            ]
+        ]
+    },
+    {
+        "id": "6b97f0af.5c4e1",
+        "type": "debug",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1430,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a0cbdcd1.9c6c",
+        "type": "comment",
+        "z": "a941c586.0f84a8",
+        "name": "Insert-Data",
+        "info": "",
+        "x": 1250,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "18621da9.64aca2",
+        "type": "debug",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1010,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e3a0797c.479e58",
+        "type": "function",
+        "z": "a941c586.0f84a8",
+        "name": "Config-Command",
+        "func": "var cmd = msg.payload;\n\n\nmsg.payload = cmd;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 970,
+        "y": 360,
+        "wires": [
+            [
+                "f1a68c04.7127b",
+                "38fab8c.a27db48"
+            ]
+        ]
+    },
+    {
+        "id": "fe238e.b6b7ec7",
+        "type": "mqtt out",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "topic": "inTopic",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5e5cce1f.8c89d",
+        "x": 1380,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f1a68c04.7127b",
+        "type": "switch",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1170,
+        "y": 300,
+        "wires": [
+            [
+                "fe238e.b6b7ec7"
+            ],
+            [
+                "efbd31d8.52243"
+            ],
+            [
+                "65fdb018.01716"
+            ]
+        ]
+    },
+    {
+        "id": "efbd31d8.52243",
+        "type": "trigger",
+        "z": "a941c586.0f84a8",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "4",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1400,
+        "y": 260,
+        "wires": [
+            [
+                "fe42cb4e.fe2508"
+            ]
+        ]
+    },
+    {
+        "id": "fe42cb4e.fe2508",
+        "type": "mqtt out",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "topic": "inTopic",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5e5cce1f.8c89d",
+        "x": 1560,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "65fdb018.01716",
+        "type": "trigger",
+        "z": "a941c586.0f84a8",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "7",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 1400,
+        "y": 300,
+        "wires": [
+            [
+                "a8487bc7.187978"
+            ]
+        ]
+    },
+    {
+        "id": "a8487bc7.187978",
+        "type": "mqtt out",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "topic": "inTopic",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5e5cce1f.8c89d",
+        "x": 1560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "38fab8c.a27db48",
+        "type": "debug",
+        "z": "a941c586.0f84a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1190,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b7247722.a36518",
+        "type": "http in",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "url": "/piserver/callback",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 40,
+        "wires": [
+            [
+                "8e5de2c5.65e31"
+            ]
+        ]
+    },
+    {
+        "id": "8e5de2c5.65e31",
+        "type": "function",
+        "z": "e31131e3.00c47",
+        "name": "Verify Webhook",
+        "func": "var mode = '';\nvar vtoken = '';\nvar challenge = '';\nif (msg.payload['hub.mode'])\n{\n   mode = msg.payload['hub.mode'];\n}\nif (msg.payload['hub.verify_token'])\n{\n   vtoken = msg.payload['hub.verify_token'];\n}\nif (msg.payload['hub.challenge'])\n{\n   challenge = msg.payload['hub.challenge'];\n}\nif ('subscribe' == mode &&\n 'jovhoeggxyc0gy4ezbj3' == vtoken) {\n   msg.payload = challenge;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 40,
+        "wires": [
+            [
+                "cef98fef.31139"
+            ]
+        ]
+    },
+    {
+        "id": "cef98fef.31139",
+        "type": "http response",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "235f48c8.d2abc8",
+        "type": "comment",
+        "z": "e31131e3.00c47",
+        "name": "Get with FB",
+        "info": "Thiết lập Webhooks . FB sẽ gửi nhận tại địa chỉ :\nhttps://conv-201-196-testtreetracking.eu-gb.mybluemix.net/urlcallback",
+        "x": 128,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "e9e71c71.58617",
+        "type": "http in",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "url": "/piserver/callback",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "e3e9d797.9c13f8"
+            ]
+        ]
+    },
+    {
+        "id": "e3e9d797.9c13f8",
+        "type": "http response",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 350,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "4f4bff7f.9a622",
+        "type": "mqtt in",
+        "z": "215e5267.6ba35e",
+        "name": "",
+        "topic": "/data/packet",
+        "qos": "2",
+        "broker": "5e5cce1f.8c89d",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "db1a09b0.f34cb8"
+            ]
+        ]
+    },
+    {
+        "id": "db1a09b0.f34cb8",
+        "type": "json",
+        "z": "215e5267.6ba35e",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "d5d3687e.a8b8d"
+            ]
+        ]
+    },
+    {
+        "id": "d5d3687e.a8b8d",
+        "type": "delay",
+        "z": "215e5267.6ba35e",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 470,
+        "y": 160,
+        "wires": [
+            [
+                "d4d08a62.008ed8"
+            ]
+        ]
+    },
+    {
+        "id": "bb607e3c.50414",
+        "type": "function",
+        "z": "786f98da.0016b8",
+        "name": "Run-Algorithms-VAN",
+        "func": "var a = [0, 1, 2];\nvar water = [5, 10, 20];\nvar Vth = 3;\nvar L = -1;\nvar OK = 0;\nvar H = 1;\nvar penalty = 100;\n\n\nvar alpha = (water[2] - water[1])/(Vth*(a[2]- a[1]));\n\nvar preHum = global.get(\"preHum\");\nvar curHum = global.get(\"curHum\");\nvar v;\nvar th1 = 15;\nvar th2 = 60;\nfunction humid2State(humid)\n{\n    if(humid < th1) return L;\n    if(humid > th2) return H;\n    return OK;\n}\n\nfunction reward(curState, action, nextState)\n{\n    var p = 0;\n    if(nextState != OK) p = penalty;\n    var r = -alpha* curState * v * a[action] - water[action] - p;\n    return r;\n}\n\nfunction makeDecision(curHumid, preHumid)\n{\n    var maxReward = -2000;\n    var curState = humid2State(curHumid);\n    v = preHumid - curHumid;\n    var tmpReward = 0;\n    var nextHumid;\n    var nextState;\n    var action;\n    \n    for(var i = 0; i < 3; i++)\n    {\n        nextHumid = curHumid - v + water[i];\n        nextState = humid2State(nextHumid);\n        tmpReward = reward(curState, i , nextState);\n        if(tmpReward > maxReward)\n        {\n            maxReward = tmpReward;\n            action = i;\n        }\n    }\n    return a[action];\n}\n\nvar control = makeDecision(curHum, preHum);\nmsg.payload = control;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 800,
+        "y": 240,
+        "wires": [
+            [
+                "16213e2e.b5313a"
+            ]
+        ]
+    },
+    {
+        "id": "d4d08a62.008ed8",
+        "type": "link out",
+        "z": "215e5267.6ba35e",
+        "name": "Message In",
+        "links": [
+            "fa850c59.b5d97"
+        ],
+        "x": 595,
+        "y": 160,
+        "wires": [],
+        "icon": "node-red-contrib-mqtt-broker/mosca.png"
+    },
+    {
+        "id": "4d424c2b.99b0bc",
+        "type": "link in",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "links": [
+            "d5aefb10.e94378"
+        ],
+        "x": 155,
+        "y": 180,
+        "wires": [
+            [
+                "c73e86d0.e44cb8"
+            ]
+        ],
+        "icon": "node-red-contrib-mqtt-broker/mosca.png"
+    },
+    {
+        "id": "5623dfe3.b4d378",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Get-Pre-Humidity",
+        "collection": "data",
+        "operation": "findOne",
+        "x": 2310,
+        "y": 80,
+        "wires": [
+            [
+                "998d785a.ef58b8"
+            ]
+        ]
+    },
+    {
+        "id": "a172ab32.643548",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Get-Cur-Hum",
+        "func": "var mac_device = msg.payload.mac;\nglobal.set('curHum',msg.payload.param.hum);\nmsg.payload = [{\"mac\":mac_device},{sort:{'_id':-1}}]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2120,
+        "y": 80,
+        "wires": [
+            [
+                "5623dfe3.b4d378"
+            ]
+        ]
+    },
+    {
+        "id": "998d785a.ef58b8",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "global.set('preHum',msg.payload.param.hum);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2470,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9f741205.85dbb8",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Get-Info-Device",
+        "collection": "device",
+        "operation": "findOne",
+        "x": 2420,
+        "y": 140,
+        "wires": [
+            [
+                "d64972cb.c66ad8"
+            ]
+        ]
+    },
+    {
+        "id": "d64972cb.c66ad8",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "global.set('idSensor',msg.payload._id);\nglobal.set('idActuator',msg.payload.rel);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2610,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "355a138c.1fe4dc",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Query-Collection-Device",
+        "collection": "device",
+        "operation": "aggregate.toArray",
+        "x": 2290,
+        "y": 240,
+        "wires": [
+            [
+                "cce95b0a.2b8b6"
+            ]
+        ]
+    },
+    {
+        "id": "cce95b0a.2b8b6",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Update-Device-List",
+        "func": "global.set('tableDevice',msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2530,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5861e539.da8e44",
+        "type": "comment",
+        "z": "b56d9067.398ed8",
+        "name": "Query-Table-Device",
+        "info": "",
+        "x": 2270,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "15f20b86.c23d04",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "60",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2070,
+        "y": 240,
+        "wires": [
+            [
+                "355a138c.1fe4dc"
+            ]
+        ]
+    },
+    {
+        "id": "648d7109.0b8ef",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Add-Time",
+        "func": "var date = new Date().toLocaleString('en-US',{timezone:'Asian/Jakatar'});\nvar datee = new Date();\n\nvar _date = { \"year\": datee.getFullYear(),\n            \"mouth\": datee.getMonth(),\n            \"day\":datee.getDate(),\n            \"hour\":datee.getHours(),\n            \"minute\":datee.getMinutes(),\n            \"second\":datee.getSeconds(),\n            \"showDate\":date\n}\n\nmsg.payload.date = _date;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2580,
+        "y": 400,
+        "wires": [
+            [
+                "e83bbcb8.45be4"
+            ]
+        ]
+    },
+    {
+        "id": "f1ec2fb.0bf5f5",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Match-Mac-Device?",
+        "func": "var match_mac = msg.payload.mac;\nvar query_device = global.get('tableDevice');\nvar check = false;\nfor (var i=0;i<query_device.length;i++)\n{\n    if (match_mac === query_device[i]._id)\n    check = true;\n}\n\nif(check===false) msg.payload = check; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2280,
+        "y": 360,
+        "wires": [
+            [
+                "9f7b7f07.f6447"
+            ]
+        ]
+    },
+    {
+        "id": "2c7fc0dc.05937",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "80",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2070,
+        "y": 360,
+        "wires": [
+            [
+                "f1ec2fb.0bf5f5"
+            ]
+        ]
+    },
+    {
+        "id": "9f7b7f07.f6447",
+        "type": "switch",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 2450,
+        "y": 360,
+        "wires": [
+            [
+                "8730a8d3.967518"
+            ],
+            [
+                "648d7109.0b8ef"
+            ]
+        ]
+    },
+    {
+        "id": "4921956.d4fa0ec",
+        "type": "comment",
+        "z": "b56d9067.398ed8",
+        "name": "Delay-for-Update-Device-Table",
+        "info": "",
+        "x": 2190,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e83bbcb8.45be4",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Insert-Data-into-Collections",
+        "collection": "data",
+        "operation": "insertOne",
+        "x": 2800,
+        "y": 400,
+        "wires": [
+            [
+                "86ff4179.5776f8"
+            ]
+        ]
+    },
+    {
+        "id": "86ff4179.5776f8",
+        "type": "debug",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 3010,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "51cd3649.c2641",
+        "type": "comment",
+        "z": "b56d9067.398ed8",
+        "name": "Insert-Data",
+        "info": "",
+        "x": 2740,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8730a8d3.967518",
+        "type": "debug",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 2590,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b44a11e6.74803",
+        "type": "inject",
+        "z": "7da79a00.44e54",
+        "name": "",
+        "topic": "",
+        "payload": "{\"_id\":\"E9:B2:58:A7:90:9D\",\"type\":\"sersor\",\"rel\":\"\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "74240486.dd5a24"
+            ]
+        ]
+    },
+    {
+        "id": "74240486.dd5a24",
+        "type": "mongodb2 in",
+        "z": "7da79a00.44e54",
+        "service": "_ext_",
+        "configNode": "604607f4.b75468",
+        "name": "",
+        "collection": "device",
+        "operation": "insertOne",
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "bf64c6a4.429b58"
+            ]
+        ]
+    },
+    {
+        "id": "bf64c6a4.429b58",
+        "type": "debug",
+        "z": "7da79a00.44e54",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 630,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "21edc002.dc5378",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "var mac_device = msg.payload.mac;\nmsg.payload = [{\"_id\":mac_device}]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 2270,
+        "y": 140,
+        "wires": [
+            [
+                "9f741205.85dbb8"
+            ]
+        ]
+    },
+    {
+        "id": "16213e2e.b5313a",
+        "type": "function",
+        "z": "786f98da.0016b8",
+        "name": "Config_Command",
+        "func": "var cmd = msg.payload;\n\nmsg.payload  = {\n    \"mac\": global.get('idActuator'),\n    \"cmd\": \"pump\",\n    \"lvl\": cmd\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1030,
+        "y": 240,
+        "wires": [
+            [
+                "dbacbc4d.d4a52"
+            ]
+        ]
+    },
+    {
+        "id": "dbacbc4d.d4a52",
+        "type": "mqtt out",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "topic": "/inTopic",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5e5cce1f.8c89d",
+        "x": 1240,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "98a07866.462be",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 2110,
+        "y": 140,
+        "wires": [
+            [
+                "21edc002.dc5378"
+            ]
+        ]
+    },
+    {
+        "id": "5e7fcabb.b68154",
+        "type": "exec",
+        "z": "367812cf.dc369e",
+        "command": "curl -4 icanhazip.com",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "d1559f91.fda5c",
+                "d87cb398.9aa62"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "47cd2454.2055fc",
+        "type": "inject",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "5e7fcabb.b68154"
+            ]
+        ]
+    },
+    {
+        "id": "d1559f91.fda5c",
+        "type": "function",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "func": "var str = msg.payload;\nstr = str.slice(0,str.length-1);\nmsg.payload = str;\n\n\n\nvar DNS_Old = global.get('DNS_Old');\nvar check ;\nif (msg.payload === DNS_Old) check = true;\n    else\n    {\n        check = false;\n        global.set('DNS_Old',msg.payload);\n    }\nmsg.payload=check;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "732c81cb.f5b66"
+            ]
+        ]
+    },
+    {
+        "id": "732c81cb.f5b66",
+        "type": "switch",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [],
+            [
+                "3a934d32.997142"
+            ]
+        ]
+    },
+    {
+        "id": "3a934d32.997142",
+        "type": "function",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "func": "msg.topic = \"DNS Updater\";\nmsg.payload = \"Update DNS for filiotteam.ml(\"+global.get('DNS_Server')+\") !\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "6fae784c.b37248",
+                "b14d5b94.629158",
+                "de0602c3.56367"
+            ]
+        ]
+    },
+    {
+        "id": "6fae784c.b37248",
+        "type": "e-mail",
+        "z": "367812cf.dc369e",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "thangbker.hust@gmail.com",
+        "dname": "",
+        "x": 760,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "29b6bcf9.ed8f44",
+        "type": "exec",
+        "z": "367812cf.dc369e",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "867b2f81.41153",
+        "type": "function",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "func": "var str = msg.payload;\nstr = str.slice(0,str.length-1);\nmsg.payload = str;\nvar DNS_Old = global.get('DNS_Old');\n\nif (msg.payload != DNS_Old)\n{\n    msg.payload = \"freenom-dns set filiotteam.ml A \"+str;\n}\nelse\n    msg.payload = \"echo $HOME\"; \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "29b6bcf9.ed8f44"
+            ]
+        ]
+    },
+    {
+        "id": "d87cb398.9aa62",
+        "type": "delay",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "867b2f81.41153"
+            ]
+        ]
+    },
+    {
+        "id": "accb653a.fab5c8",
+        "type": "function",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "func": "var cmd = msg.payload;\nvar senderId = \"2591312210896244\";\nmsg.payload =\n{\n\"recipient\": {\n\"id\": senderId\n},\n\"message\": {\n\"text\": cmd\n}\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "faf2d81a.df11c8"
+            ]
+        ]
+    },
+    {
+        "id": "faf2d81a.df11c8",
+        "type": "http request",
+        "z": "e31131e3.00c47",
+        "name": "Send API Request",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://graph.facebook.com/v2.6/me/messages?access_token=EAADvzBMwUyQBAC45d4mPGX6OoEHt7SuH5NsSb7SVbzhPvsy6DjqE0sown1e8766RZACmZAgPShDTLiWgtkgabPnzzZATfCbnZAuHrS100UZB1UjpUVcjyVn0Wo62xpSOoInE6arq5P4TAcrrGQ98RBKrb60gpdEpZC97euamasagZDZD",
+        "tls": "",
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "e92b447b.6f28e8"
+            ]
+        ]
+    },
+    {
+        "id": "e92b447b.6f28e8",
+        "type": "debug",
+        "z": "e31131e3.00c47",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "x": 720,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "b14d5b94.629158",
+        "type": "function",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "func": "var cmd = msg.payload;\nvar senderId = \"2591312210896244\";\nmsg.payload =\n{\n\"recipient\": {\n\"id\": senderId\n},\n\"message\": {\n\"text\": cmd\n}\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 220,
+        "wires": [
+            [
+                "32873fb6.c8e46"
+            ]
+        ]
+    },
+    {
+        "id": "32873fb6.c8e46",
+        "type": "http request",
+        "z": "367812cf.dc369e",
+        "name": "Send API Request",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://graph.facebook.com/v2.6/me/messages?access_token=EAADvzBMwUyQBAC45d4mPGX6OoEHt7SuH5NsSb7SVbzhPvsy6DjqE0sown1e8766RZACmZAgPShDTLiWgtkgabPnzzZATfCbnZAuHrS100UZB1UjpUVcjyVn0Wo62xpSOoInE6arq5P4TAcrrGQ98RBKrb60gpdEpZC97euamasagZDZD",
+        "tls": "",
+        "x": 850,
+        "y": 220,
+        "wires": [
+            [
+                "d3172aa1.e707a8"
+            ]
+        ]
+    },
+    {
+        "id": "d3172aa1.e707a8",
+        "type": "debug",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "x": 1040,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "db3535a2.bc1f18",
+        "type": "exec",
+        "z": "367812cf.dc369e",
+        "command": "sudo systemctl restart nginx.service",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 940,
+        "y": 280,
+        "wires": [
+            [
+                "2f102f37.f757a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2f102f37.f757a",
+        "type": "debug",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1170,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "de0602c3.56367",
+        "type": "delay",
+        "z": "367812cf.dc369e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 700,
+        "y": 280,
+        "wires": [
+            [
+                "db3535a2.bc1f18"
+            ]
+        ]
+    },
+    {
+        "id": "fa850c59.b5d97",
+        "type": "link in",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "links": [
+            "d4d08a62.008ed8"
+        ],
+        "x": 235,
+        "y": 100,
+        "wires": [
+            [
+                "cfa79553.275ec8",
+                "cd40b514.fac168"
+            ]
+        ]
+    },
+    {
+        "id": "cfa79553.275ec8",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 350,
+        "y": 100,
+        "wires": [
+            [
+                "7ec7a8b0.a13608"
+            ]
+        ]
+    },
+    {
+        "id": "eba94234.f69cc",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Match-Mac-Device?",
+        "func": "var match_mac = msg.payload.mac;\nvar query_device = global.get('tableDevice');\nvar check = false;\nfor (var i=0;i<query_device.length;i++)\n{\n    if (match_mac === query_device[i]._id)\n    check = true;\n}\n\nif(check===false) msg.payload = check; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "16232b88.d4fc94"
+            ]
+        ]
+    },
+    {
+        "id": "16232b88.d4fc94",
+        "type": "switch",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 200,
+        "wires": [
+            [],
+            [
+                "14c11f84.50068",
+                "59c97e3b.a1c1e",
+                "29eda46c.c8737c",
+                "ac069277.6372c"
+            ]
+        ]
+    },
+    {
+        "id": "7ec7a8b0.a13608",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Query-Collection-Device",
+        "collection": "device",
+        "operation": "aggregate.toArray",
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "cc7691ec.e727e"
+            ]
+        ]
+    },
+    {
+        "id": "cc7691ec.e727e",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Update-Device-List",
+        "func": "global.set('tableDevice',msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a79dce2a.b1be6",
+        "type": "comment",
+        "z": "b56d9067.398ed8",
+        "name": "Query-Table-Device",
+        "info": "",
+        "x": 2370,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "cd40b514.fac168",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 330,
+        "y": 180,
+        "wires": [
+            [
+                "eba94234.f69cc"
+            ]
+        ]
+    },
+    {
+        "id": "46f0a1e9.38205",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Get-Pre-Humidity",
+        "collection": "data",
+        "operation": "findOne",
+        "x": 1070,
+        "y": 240,
+        "wires": [
+            [
+                "19d88298.b8533d"
+            ]
+        ]
+    },
+    {
+        "id": "14c11f84.50068",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Get-Cur-Hum",
+        "func": "var mac_device = msg.payload.mac;\nglobal.set('curHum',msg.payload.param.hum);\nmsg.payload = [{\"mac\":mac_device},{sort:{'_id':-1}}]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 880,
+        "y": 240,
+        "wires": [
+            [
+                "46f0a1e9.38205"
+            ]
+        ]
+    },
+    {
+        "id": "19d88298.b8533d",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "global.set('preHum',msg.payload.param.hum);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1230,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f9859dd8.dd451",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Get-Info-Device",
+        "collection": "device",
+        "operation": "findOne",
+        "x": 1160,
+        "y": 300,
+        "wires": [
+            [
+                "a9c89e96.a8cbb"
+            ]
+        ]
+    },
+    {
+        "id": "a9c89e96.a8cbb",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "global.set('idSensor',msg.payload._id);\nglobal.set('idActuator',msg.payload.rel);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1350,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed7c077a.74dc68",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "func": "var mac_device = msg.payload.mac;\nmsg.payload = [{\"_id\":mac_device}]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 300,
+        "wires": [
+            [
+                "f9859dd8.dd451"
+            ]
+        ]
+    },
+    {
+        "id": "59c97e3b.a1c1e",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "ed7c077a.74dc68"
+            ]
+        ]
+    },
+    {
+        "id": "29eda46c.c8737c",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "50",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 850,
+        "y": 460,
+        "wires": [
+            [
+                "4ba71817.ad2438"
+            ]
+        ]
+    },
+    {
+        "id": "4ba71817.ad2438",
+        "type": "function",
+        "z": "b56d9067.398ed8",
+        "name": "Add-Time",
+        "func": "var date = new Date().toLocaleString('en-US',{timezone:'Asian/Jakatar'});\nvar datee = new Date();\n\nvar _date = { \"year\": datee.getFullYear(),\n            \"mouth\": datee.getMonth(),\n            \"day\":datee.getDate(),\n            \"hour\":datee.getHours(),\n            \"minute\":datee.getMinutes(),\n            \"second\":datee.getSeconds(),\n            \"showDate\":date\n}\n\nmsg.payload.date = _date;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1020,
+        "y": 460,
+        "wires": [
+            [
+                "5da22a0.ca11ad8"
+            ]
+        ]
+    },
+    {
+        "id": "5da22a0.ca11ad8",
+        "type": "mongodb2 in",
+        "z": "b56d9067.398ed8",
+        "service": "_ext_",
+        "configNode": "8cf0d5b3.320428",
+        "name": "Insert-Data-into-Collections",
+        "collection": "data",
+        "operation": "insertOne",
+        "x": 1240,
+        "y": 460,
+        "wires": [
+            [
+                "46db2412.05981c"
+            ]
+        ]
+    },
+    {
+        "id": "46db2412.05981c",
+        "type": "debug",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1450,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5cd7c840.510678",
+        "type": "comment",
+        "z": "b56d9067.398ed8",
+        "name": "Insert-Data",
+        "info": "",
+        "x": 1180,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d5aefb10.e94378",
+        "type": "link out",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "links": [
+            "4d424c2b.99b0bc"
+        ],
+        "x": 1115,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ac069277.6372c",
+        "type": "delay",
+        "z": "b56d9067.398ed8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "40",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 870,
+        "y": 380,
+        "wires": [
+            [
+                "d5aefb10.e94378"
+            ]
+        ]
+    },
+    {
+        "id": "c73e86d0.e44cb8",
+        "type": "function",
+        "z": "786f98da.0016b8",
+        "name": "Check-Available-Actuator-Rel",
+        "func": "msg.payload = {\n    \"mac\":global.get('idActuator'),\n    \"cmd\":\"available?\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 100,
+        "wires": [
+            [
+                "1d4c0435.de81cc"
+            ]
+        ]
+    },
+    {
+        "id": "1d4c0435.de81cc",
+        "type": "mqtt out",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "topic": "/inTopic",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5e5cce1f.8c89d",
+        "x": 480,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "748d0cab.18dd44",
+        "type": "mqtt in",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "topic": "/outTopic",
+        "qos": "2",
+        "broker": "5e5cce1f.8c89d",
+        "x": 620,
+        "y": 120,
+        "wires": [
+            [
+                "a1b5483b.658478"
+            ]
+        ]
+    },
+    {
+        "id": "8b5e8f85.e4083",
+        "type": "switch",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Pump Done",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "available",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 910,
+        "y": 120,
+        "wires": [
+            [],
+            [
+                "bb607e3c.50414"
+            ]
+        ]
+    },
+    {
+        "id": "a1b5483b.658478",
+        "type": "delay",
+        "z": "786f98da.0016b8",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 770,
+        "y": 120,
+        "wires": [
+            [
+                "8b5e8f85.e4083"
+            ]
+        ]
+    }
+]
